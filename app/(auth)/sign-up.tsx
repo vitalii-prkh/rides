@@ -83,7 +83,7 @@ function ScreenSignUp() {
       // for more info on error handling
       setVerification({
         ...verification,
-        error: err.errors[0].longMessage,
+        error: err.errors?.[0]?.longMessage,
         state: "failed",
       });
     }
@@ -191,7 +191,10 @@ function ScreenSignUp() {
             </Text>
             <CustomButton
               title="Browse Home"
-              onPress={() => router.push(`/(root)/(tabs)/home`)}
+              onPress={() => {
+                router.push(`/(root)/(tabs)/home`);
+                setShowSuccessModal(false);
+              }}
               className="mt-5"
             />
           </View>

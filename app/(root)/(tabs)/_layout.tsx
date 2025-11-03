@@ -5,7 +5,7 @@ import {icons} from "../../../constants";
 function TabsLayout() {
   return (
     <Tabs
-      initialRouteName="index"
+      initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "white",
@@ -17,7 +17,7 @@ function TabsLayout() {
           overflow: "hidden",
           marginHorizontal: 20,
           marginBottom: 20,
-          height: 78,
+          height: 60,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

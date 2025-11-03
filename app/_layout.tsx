@@ -4,11 +4,16 @@ import {useFonts} from "expo-font";
 import {Stack} from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import {useEffect} from "react";
-import {LogBox} from "react-native";
+import {LogBox, Platform} from "react-native";
 import {tokenCache} from "../lib/auth";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+if (Platform.OS !== "web") {
+  // Guard for platforms without a native splash (e.g., Web)
+  SplashScreen.preventAutoHideAsync().catch(() => {
+    // Ignore: no native splash registered or already hidden
+  });
+}
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -32,8 +37,10 @@ function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    if (loaded && Platform.OS !== "web") {
+      SplashScreen.hideAsync().catch(() => {
+        // Ignore: no native splash registered or already hidden
+      });
     }
   }, [loaded]);
 
