@@ -1,3 +1,4 @@
+import {Fragment} from "react";
 import {useUser} from "@clerk/clerk-expo";
 import {StripeProvider} from "@stripe/stripe-react-native";
 import {Image, Text, View} from "react-native";
@@ -11,7 +12,6 @@ function ScreeBookRide() {
   const {user} = useUser();
   const {userAddress, destinationAddress} = useLocationStore();
   const {drivers, selectedDriver} = useDriverStore();
-
   const driverDetails = drivers?.filter(
     (driver) => +driver.id === selectedDriver,
   )[0];
@@ -23,7 +23,7 @@ function ScreeBookRide() {
       urlScheme="myapp"
     >
       <RideLayout title="Book Ride">
-        <>
+        <Fragment>
           <Text className="mb-3 font-JakartaSemiBold text-xl">
             Ride Information
           </Text>
@@ -104,7 +104,7 @@ function ScreeBookRide() {
             driverId={driverDetails?.id}
             rideTime={driverDetails?.time!}
           />
-        </>
+        </Fragment>
       </RideLayout>
     </StripeProvider>
   );
