@@ -1,6 +1,12 @@
 import {create} from "zustand";
 import {DriverStore, LocationStore, MarkerData} from "../types/type";
 
+type SetLocationParams = {
+  latitude: number;
+  longitude: number;
+  address: string;
+};
+
 export const useLocationStore = create<LocationStore>((set) => ({
   userLatitude: null,
   userLongitude: null,
@@ -8,15 +14,9 @@ export const useLocationStore = create<LocationStore>((set) => ({
   destinationLatitude: null,
   destinationLongitude: null,
   destinationAddress: null,
-  setUserLocation: ({
-    latitude,
-    longitude,
-    address,
-  }: {
-    latitude: number;
-    longitude: number;
-    address: string;
-  }) => {
+  setUserLocation(params: SetLocationParams) {
+    const {latitude, longitude, address} = params;
+
     set(() => ({
       userLatitude: latitude,
       userLongitude: longitude,
@@ -31,15 +31,9 @@ export const useLocationStore = create<LocationStore>((set) => ({
     }
   },
 
-  setDestinationLocation: ({
-    latitude,
-    longitude,
-    address,
-  }: {
-    latitude: number;
-    longitude: number;
-    address: string;
-  }) => {
+  setDestinationLocation(params: SetLocationParams) {
+    const {latitude, longitude, address} = params;
+
     set(() => ({
       destinationLatitude: latitude,
       destinationLongitude: longitude,
@@ -58,17 +52,19 @@ export const useLocationStore = create<LocationStore>((set) => ({
 export const useDriverStore = create<DriverStore>((set) => ({
   drivers: [] as MarkerData[],
   selectedDriver: null,
-  setSelectedDriver: (driverId: number) =>
+  setSelectedDriver(selectedDriver: number) {
     set(() => ({
-      selectedDriver: driverId,
-    })),
-
-  setDrivers: (drivers: MarkerData[]) =>
+      selectedDriver,
+    }));
+  },
+  setDrivers(drivers: MarkerData[]) {
     set(() => ({
       drivers,
-    })),
-  clearSelectedDriver: () =>
+    }));
+  },
+  clearSelectedDriver() {
     set(() => ({
       selectedDriver: null,
-    })),
+    }));
+  },
 }));

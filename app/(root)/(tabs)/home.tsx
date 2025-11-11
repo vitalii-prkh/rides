@@ -11,7 +11,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-
 import {GoogleTextInput} from "../../../components/GoogleTextInput";
 import {Map} from "../../../components/Map";
 import {RideCard} from "../../../components/RideCard";
@@ -36,7 +35,7 @@ function ScreenHome() {
 
   useEffect(() => {
     (async () => {
-      let {status} = await Location.requestForegroundPermissionsAsync();
+      const {status} = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
         setHasPermission(false);
@@ -44,8 +43,7 @@ function ScreenHome() {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-
+      const location = await Location.getCurrentPositionAsync({});
       const address = await Location.reverseGeocodeAsync({
         latitude: location.coords?.latitude!,
         longitude: location.coords?.longitude!,

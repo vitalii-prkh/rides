@@ -66,7 +66,7 @@ export function Map() {
     destinationLongitude,
   });
 
-  if (loading || (!userLatitude && !userLongitude))
+  if (loading || (!userLatitude && !userLongitude)) {
     return (
       <View className="flex w-full items-center justify-between">
         <ActivityIndicator
@@ -75,13 +75,15 @@ export function Map() {
         />
       </View>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
       <View className="flex w-full items-center justify-between">
         <Text>Error: {error}</Text>
       </View>
     );
+  }
 
   return (
     <MapView
